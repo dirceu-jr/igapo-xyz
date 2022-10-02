@@ -6,67 +6,21 @@
   <meta charset="utf-8">
   <title>Igapó XYZ &mdash; GIS</title>
   <meta name="viewport" content="width=device-width, maximum-scale=1.0">
-  <meta name="description" content="Sistema de informação geográfica">
+  <meta name="description" content="Colaborative GIS">
   <meta name="author" content="Igapó Tech">
   <link rel="shortcut icon" href="/images/favicon.png" />
   <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.png"> -->
 
-  <link rel="stylesheet" href="/leaflet.css" />
-  <script src="/leaflet.js"></script>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/leaflet.css" />
+  <script src="/js/leaflet.js"></script>
 
-  <script defer src="/__/firebase/9.8.3/firebase-app-compat.js"></script>
-  <script defer src="/__/firebase/9.8.3/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/9.10.0/firebase-database-compat.js"></script>
+
   <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-  <style>
-    html, body { height: 100%; width: 100%; }
-
-    body {
-      user-select: none;
-      text-rendering: optimizeLegibility;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      margin: 0;
-      padding: 0;
-    }
-
-    #map { width: 100%; height: 100%; }
-
-    #mc_embed_signup {
-      width: 320px;
-      text-align: center;
-      margin: 0 auto;
-      position: absolute;
-      top: 87%;
-      left: 50%;
-      transform: perspective(1px) translateY(-50%) translateX(-50%);
-      z-index: 999;
-      background: rgb(255 255 255 / 75%);
-      box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
-      border-radius: 12px;
-      padding-top: 10px;
-    }
-
-    #mc_embed_signup form {
-      padding: 0 10px !important;
-    }
-
-    .mc-field-group label {
-      margin: 0 0 10px 0 !important;
-    }
-
-    #mc_embed_signup .mc-field-group {
-      width: 100% !important;
-    }
-
-    #mc_embed_signup .button {
-      background-color: #2d5929 !important;
-    }
-
-    .popup {
-      font-size: 1.5em;
-      text-align: center;
-    }
-  </style>
+  
   <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7_dtp.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -96,122 +50,23 @@
     </form>
   </div>
 
+  <template id="cursor">
+    <svg viewBox="0 0 16.3 24.7" class="cursor">
+      <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+        d="M15.6 15.6L.6.6v20.5l4.6-4.5 3.2 7.5 3.4-1.3-3-7.2z" />
+    </svg>
+  </template>
+
   <div id="map"></div>
 
-  <script>
-    var
-      initial_center = [-23.3463044,-51.1417142],
-      maxZoom = 17,
-      common_attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
-    ;
+  <script src="/js/map-scripts.js"></script>
+  <script src="/js/live-cursor.js"></script>
 
-    var watercolor = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png', {
-      maxZoom: 16,
-      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
-    });
-
-    var terrain = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png', {
-      maxZoom: 16,
-      attribution: common_attribution
-    });
-    
-    var toner = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
-      maxZoom: 16,
-      attribution: common_attribution
-    });
-
-    // var rgb = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    //   attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    // });
-
-    var google = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-      maxZoom: 21,
-      attribution: 'Google Maps'
-    });
-
-    // initialize the map on the "map" div with a given center and zoom
-    var map = L.map('map', {
-      center: initial_center,
-      zoom: 16,
-      zoomControl: false,
-      attributionControl: false,
-      layers: [google]
-    });
-
-    var baseMaps = {
-      "Google Maps": google,
-      "Terrain": terrain,
-      "Toner": toner,
-      "Watercolor": watercolor,
-      // "RGB": rgb,
-    };
-
-    L.control.layers(baseMaps).addTo(map);
-    L.control.attribution({ prefix: '<a href="https://leafletjs.com/">Leaflet</a>' }).addTo(map);
-    L.control.scale({ position: 'topleft' }).addTo(map);
-
-    var popup_options = { closeButton: false, closeOnClick: false, closeOnEscapeKey: false };
-    var animation_timeout = 6000;
-
-    function start_animation() {
-      L.popup(popup_options)
-        .setLatLng(initial_center)
-        .setContent("<div class='popup'>Ambiental</div>")
-        .openOn(map);
-
-      setTimeout(function () {
-        var construction_center = [-23.3322167,-51.173735];
-
-        map.flyTo(construction_center);
-
-        L.popup(popup_options)
-          .setLatLng(construction_center)
-          .setContent("<div class='popup'>Construção</div>")
-          .openOn(map);
-
-        setTimeout(function () {
-          var agro_center = [-23.337771, -51.200775];
-
-          map.flyTo(agro_center, 15);
-
-          L.popup(popup_options)
-            .setLatLng(agro_center)
-            .setContent("<div class='popup'>Agro</div>")
-            .openOn(map);
-
-          setTimeout(function () {
-            var services_center = [-23.3683204, -51.0079171];
-
-            map.flyTo(services_center, 13);
-
-            L.popup(popup_options)
-              .setLatLng(services_center)
-              .setContent("<div class='popup'>Serviços</div>")
-              .openOn(map);
-
-            setTimeout(function () {
-              map.flyTo(initial_center, 16);
-              start_animation();
-            }, animation_timeout);
-          }, animation_timeout);
-        }, animation_timeout);
-      }, animation_timeout);
-    }
-
-    start_animation();
-
-  </script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      firebase.analytics();
-    });
-  </script>
-
-  <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
-  <script type='text/javascript'>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
-
+  <script src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+  <script>(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
+  
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script> -->
+  <!-- <script src="/js/sockjs-live-cursor.js"></script> -->
 </body>
 
 </html>

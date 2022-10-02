@@ -1,0 +1,58 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  /* cursor: none; */
+}
+
+body {
+  user-select: none;
+  text-rendering: optimizeLegibility;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin: 0;
+  padding: 0;
+}
+
+#map { width: 100%; height: 100%; }
+
+#mc_embed_signup {
+  width: 320px;
+  text-align: center;
+  margin: 0 auto;
+  position: absolute;
+  top: 87%;
+  left: 50%;
+  transform: perspective(1px) translateY(-50%) translateX(-50%);
+  z-index: 999;
+  background: rgb(255 255 255 / 75%);
+  box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
+  border-radius: 12px;
+  padding-top: 10px;
+}
+
+#mc_embed_signup form {
+  padding: 0 10px !important;
+}
+
+.mc-field-group label {
+  margin: 0 0 10px 0 !important;
+}
+
+#mc_embed_signup .mc-field-group {
+  width: 100% !important;
+}
+
+#mc_embed_signup .button {
+  background-color: #2d5929 !important;
+}
+
+.popup {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.cursor {
+  position: absolute;
+  width: 30px;
+  transition: all ease;
+  z-index: 750;
+}

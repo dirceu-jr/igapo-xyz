@@ -1,0 +1,24 @@
+# TODO
+
+## Collaborative Realtime Mapping with Firebase
+https://developers.google.com/maps/documentation/javascript/firebase
+
+## Beside Firebase We have 2 good options
+1 - https://github.com/sockjs
+2 - https://socket.io/
+
+## Voice communication
+- https://github.com/peers/peerjs
+
+## Ably is nice but paid
+- Paid: https://ably.com/
+
+- On the backend side there is a Node.js based system with the Peer.js library acting as a connection broker to facilitate P2P WebRTC connections between clients. Another Node.js server running the socket.io library handles all WebSockets events to sync spatial and cursor positions as well as messaging and all other user-facing logic.
+
+- When screen sizes is different
+- https://ragul-harisankar.medium.com/mapping-mouse-coordinates-between-two-different-devices-450b145e571f
+
+- Give super computing Powers to IAT and Ambiental:
+  - Real-time colaborative Maps;
+  - It could be good to have VoIP s It does not to call with another app in the same time;
+
