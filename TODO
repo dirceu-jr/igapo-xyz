@@ -1,5 +1,16 @@
 # TODO
 
+- Add realtime chat;
+- Allow to sign up;
+- Allow to create a new map;
+- Allow to add marker;
+- Allow to draw a line / polygon;
+- Allow to share a map;
+- Marker, line and polygon realtime collaboration;
+- Voice communication;
+
+# References
+
 ## Collaborative Realtime Mapping with Firebase
 https://developers.google.com/maps/documentation/javascript/firebase
 
@@ -22,3 +33,6 @@ https://developers.google.com/maps/documentation/javascript/firebase
   - Real-time colaborative Maps;
   - It could be good to have VoIP s It does not to call with another app in the same time;
 
+## Cool blog posts about realtime collaboration
+
+- https://prototypr.io/post/collaboration-tools-live-cursors
