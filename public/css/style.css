@@ -1,7 +1,6 @@
 html, body {
   height: 100%;
   width: 100%;
-  /* cursor: none; */
 }
 
 body {
@@ -12,16 +11,42 @@ body {
   padding: 0;
 }
 
-#map { width: 100%; height: 100%; }
+#topbar {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #377e22;
+}
+
+#topbar img {
+  width: 48px;
+  margin: 0 5px;
+  vertical-align: middle;
+}
+
+#topbar #menu {
+  padding: 0px 20px;
+  color: white;
+}
+
+#topbar #menu ul {
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+
+#topbar #menu ul li {
+  margin: 0 10px;
+}
+
+#topbar #menu ul li a {
+  color: #000;
+  text-decoration: none;
+}
 
 #mc_embed_signup {
   width: 320px;
   text-align: center;
   margin: 0 auto;
-  position: absolute;
-  top: 87%;
-  left: 50%;
-  transform: perspective(1px) translateY(-50%) translateX(-50%);
   z-index: 999;
   background: rgb(255 255 255 / 75%);
   box-shadow: 0 3px 14px rgb(0 0 0 / 40%);
@@ -45,14 +70,5 @@ body {
   background-color: #2d5929 !important;
 }
 
-.popup {
-  font-size: 1.5em;
-  text-align: center;
-}
+#map { width: 100%; height: calc(100% - 49px); }
 
-.cursor {
-  position: absolute;
-  width: 30px;
-  transition: all ease;
-  z-index: 750;
-}
