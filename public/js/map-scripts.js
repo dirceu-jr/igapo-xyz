@@ -88,3 +88,9 @@ var marker5 = L.marker([-23.3307082, -51.1703002], { icon: greyIcon }).addTo(map
 marker5.bindPopup("<div id='pop5'><strong>Futura Estação de Qualidade do Ar</strong></div>", {
   minWidth: 240
 });
+
+// Av. das Maritacas
+var marker6 = L.marker([-23.284992, -51.109484], { icon: greyIcon }).addTo(map);
+marker6.bindPopup("<div id='pop5'><strong>Futura Estação de Qualidade da Água</strong></div>", {
+  minWidth: 240
+});
