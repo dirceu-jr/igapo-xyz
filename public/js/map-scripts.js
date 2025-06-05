@@ -1,6 +1,6 @@
 // vilinha
 var
-  initial_center = [-25.4152895, -49.1974916]
+  initial_center = [-24.7572974,-51.7692009]
 ;
 
 // MapTiler layer
@@ -16,7 +16,7 @@ var maptiler = L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}
 // initialize the map on the "map" div with a given center and zoom
 var map = L.map('map', {
   center: initial_center,
-  zoom: 11,
+  zoom: 8,
   zoomControl: false,
   attributionControl: false,
   layers: [maptiler]
@@ -42,6 +42,7 @@ marker1.on("popupopen", function() {
       var celsius = (data.sensor.temperature - 32) * 5 / 9;
       $("#pop1").html(
         "<strong>Estação de Qualidade do Ar (" + data.sensor.name + " - " + data.sensor.model + ")</strong><br>" +
+        "Horário: " + new Date(data.sensor.last_seen * 1000).toLocaleString("pt-BR") + "<br>" +
         "Humidade: " + data.sensor.humidity + "<br>" +
         "Pressão: " + data.sensor.pressure + "<br>" +
         "Temperatura: " + celsius.toFixed(1) + "°<br>" +
@@ -51,7 +52,6 @@ marker1.on("popupopen", function() {
       );
     }
   });
-  
 });
 
 // grey icon
@@ -92,5 +92,17 @@ marker5.bindPopup("<div id='pop5'><strong>Futura Estação de Qualidade do Ar</s
 // Av. das Maritacas
 var marker6 = L.marker([-23.284992, -51.109484], { icon: greyIcon }).addTo(map);
 marker6.bindPopup("<div id='pop5'><strong>Futura Estação de Qualidade da Água</strong></div>", {
+  minWidth: 240
+});
+
+// Nascente do Vale
+var marker7 = L.marker([-23.312160, -51.172573], { icon: greyIcon }).addTo(map);
+marker7.bindPopup("<div id='pop4'><strong>Futura Estação de Qualidade da Água (Nascente)</strong></div>", {
+  minWidth: 240
+});
+
+// Ayrton Senna
+var marker8 = L.marker([-23.325992, -51.176789], { icon: greyIcon }).addTo(map);
+marker8.bindPopup("<div id='pop4'><strong>Futura Estação de Qualidade da Água</strong></div>", {
   minWidth: 240
 });
